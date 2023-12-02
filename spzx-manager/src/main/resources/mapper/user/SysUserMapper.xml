@@ -1,18 +1,61 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.atguigu.spzx.manager.mapper.SysUserMapper">
-
+    <resultMap id="sysUserMap" type="com.atguigu.spzx.model.entity.system.SysUser" autoMapping="true"/>
+    <!-- 用于select查询公用抽取的列 -->
     <sql id="columns">
         id,username userName ,password,name,phone,avatar,description,status,create_time,update_time,is_deleted
     </sql>
 
-<!--    //4 用户删除-->
-    <update id="delete">
-        update sys_user set is_deleted=1 where id=#{userId}
-    </update>
+    <select id="selectByUserName" resultType="com.atguigu.spzx.model.entity.system.SysUser">
+        select <include refid="columns" /> from sys_user where username = #{userName} and is_deleted = 0
+    </select>
 
-<!--    //3 用户修改-->
-    <update id="update">
+    <sql id="findPageWhere">
+        <where>
+            <if test="keyword != null and keyword != ''">
+                and username like CONCAT('%',#{keyword},'%')
+            </if>
+            <if test="createTimeBegin != null and createTimeBegin != ''">
+                and create_time >= #{createTimeBegin}
+            </if>
+            <if test="createTimeEnd != null and createTimeEnd != ''">
+                and create_time &lt;= #{createTimeEnd}
+            </if>
+            and is_deleted = 0
+        </where>
+    </sql>
+
+    <select id="findByPage" resultType="com.atguigu.spzx.model.entity.system.SysUser" >
+        select <include refid="columns" />
+        from sys_user
+        <include refid="findPageWhere"/>
+        order by id desc
+    </select>
+
+    <insert id="saveSysUser">
+        insert into sys_user (
+        id,
+        username,
+        password,
+        name,
+        phone,
+        avatar,
+        description,
+        status
+        ) values (
+        #{id},
+        #{userName},
+        #{password},
+        #{name},
+        #{phone},
+        #{avatar},
+        #{description},
+        #{status}
+        )
+    </insert>
+
+    <update id="updateSysUser">
         update sys_user set
         <if test="userName != null and userName != ''">
             username = #{userName},
@@ -37,53 +80,16 @@
         id = #{id}
     </update>
 
-<!--    //2 用户添加-->
-    <insert id="save">
-        insert into sys_user (
-            id,
-            username,
-            password,
-            name,
-            phone,
-            avatar,
-            description,
-            status
-        ) values (
-                     #{id},
-                     #{userName},
-                     #{password},
-                     #{name},
-                     #{phone},
-                     #{avatar},
-                     #{description},
-                     #{status}
-                 )
-    </insert>
+    <delete id="deleteById">
+        update sys_user set
+        update_time = now() ,
+        is_deleted = 1
+        where
+        id = #{id}
+    </delete>
 
-<!--    //1 用户条件分页查询接口-->
-    <select id="findByPage" resultType="com.atguigu.spzx.model.entity.system.SysUser">
-        select <include refid="columns"/>
-        from sys_user
-        <where>
-            <if test="keyword != null and keyword != ''">
-                and username like concat('%',#{keyword},'%')
-            </if>
-
-            <if test="createTimeBegin != null and createTimeBegin != ''">
-                and create_time >= #{createTimeBegin}
-            </if>
-            <if test="createTimeEnd != null and createTimeEnd != ''">
-                and create_time &lt;= #{createTimeEnd}
-            </if>
-            and is_deleted=0
-        </where>
-        order by id desc
+    <select id="findByUserName" resultType="com.atguigu.spzx.model.entity.system.SysUser">
+        select <include refid="columns" /> from sys_user where username = #{userName}
     </select>
 
-    <select id="selectUserInfoByUserName" resultType="com.atguigu.spzx.model.entity.system.SysUser">
-        SELECT <include refid="columns"/>
-        FROM sys_user
-        WHERE username=#{userName}
-          and is_deleted=0
-    </select>
 </mapper>

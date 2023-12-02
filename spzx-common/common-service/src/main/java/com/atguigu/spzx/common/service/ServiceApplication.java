@@ -1,4 +1,4 @@
-package com.atguigu.spzx.common.service.config;
+package com.atguigu.spzx.common.service;
 
 import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import org.springframework.boot.SpringApplication;
