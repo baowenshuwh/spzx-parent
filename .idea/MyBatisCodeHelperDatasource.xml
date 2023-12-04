@@ -3,12 +3,17 @@
   <component name="MyBatisCodeHelperDatasource">
     <option name="projectProfile">
       <ProjectProfile>
-        <option name="mapperFilesFolder" value="E:\JavaProject\spzx\spzx-parent\spzx-manager\src\main\resources\mapper\product" />
+        <option name="mapperFilesFolder" value="E:\JavaProject\spzx\spzx-parent\spzx-service\service-pay\src\main\resources\mapper.pay" />
         <option name="mapperFilesFolderList">
           <list>
             <option value="E:\JavaProject\spzx\spzx-parent\spzx-manager\src\main\resources\mapper" />
             <option value="E:\JavaProject\spzx\spzx-parent\spzx-manager\src\main\resources\mapper\user" />
             <option value="E:\JavaProject\spzx\spzx-parent\spzx-manager\src\main\resources\mapper\product" />
+            <option value="E:\JavaProject\spzx\spzx-parent\spzx-manager\src\main\resources\mapper\order" />
+            <option value="E:\JavaProject\spzx\spzx-parent\spzx-manager\src\main\resources\mapper\log" />
+            <option value="E:\JavaProject\spzx\spzx-parent\spzx-service\service-product\src\main\resources\mapper\product" />
+            <option value="E:\JavaProject\spzx\spzx-parent\spzx-service\service-order\src\main\resources\mapper\order" />
+            <option value="E:\JavaProject\spzx\spzx-parent\spzx-service\service-pay\src\main\resources\mapper.pay" />
           </list>
         </option>
       </ProjectProfile>
